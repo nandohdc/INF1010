@@ -131,8 +131,11 @@ unsigned int List::size()
 void List::remove(const int& element)
 {
     std::cout << "Object is being removed" << std::endl;
-    Node* temp = this->first;
 
+    if(this->first == nullptr)
+        return;
+
+    Node* temp = this->first;
     while(temp->next != nullptr){
         if(temp->val == element){
             temp->prev->next = temp->next;
@@ -142,8 +145,6 @@ void List::remove(const int& element)
             temp = temp->next;
         }
     }
-
-     delete(temp);
 
      return;
 }
@@ -164,24 +165,22 @@ void List::print()
 
 void List::sort(){
 
-    unsigned int list_size = this->size();
-    Node* temp2 = this->first;
-    Node* temp = nullptr;
-    for(int i = 0 ; i < 2; i++){
-        for(temp = this->first; temp!= nullptr; temp = temp->next){
-            if(temp2->val > temp->val){
-                temp2 = temp;
-            } else if(temp2->val == temp->val){
-                temp2 = temp->next;
+    if(this->size() <= 1){
+        std::cout << "Lista possui 1 ou menos elementos."<< std::endl;
+        return;
+    }
+    Node* temp2 = nullptr;
+    for(Node* cur = this->first; cur->next != nullptr; cur = cur->next){
+        for(Node* temp = cur->next; temp !=  nullptr; temp = temp->next){
+            if(temp->val < cur->val){
+                cur = temp;
             }
         }
-        
-        temp2->prev->next = temp2->next;
-        temp2->next->prev = temp2->prev;
 
-        this->first->prev = temp2;
-        temp2->next = this->first;
-        this->first = temp2;
-        temp2 = this->first->next;
+        cur->prev->next = cur->next;
+        cur->next->prev = cur->prev;
+        cur->next = this->first;
+        this->first->prev = cur;
+        cur->prev = nullptr;
     }
 }

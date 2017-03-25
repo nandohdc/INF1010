@@ -10,9 +10,9 @@ int main (void){
 	l2->push_back(104);
 	l2->push_back(103);
 	l2->push_back(105);
-	l2->print();
+	//l2->print();
 
-	l2->remove(102);
+	//l2->remove(102);
 
 	l2->sort();
 
