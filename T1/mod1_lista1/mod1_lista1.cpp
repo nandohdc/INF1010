@@ -169,18 +169,14 @@ void List::sort(){
         std::cout << "Lista possui 1 ou menos elementos."<< std::endl;
         return;
     }
-    Node* temp2 = nullptr;
-    for(Node* cur = this->first; cur->next != nullptr; cur = cur->next){
+	for (Node* cur = this->first; cur->next != nullptr; cur = cur->next) {
         for(Node* temp = cur->next; temp !=  nullptr; temp = temp->next){
             if(temp->val < cur->val){
-                cur = temp;
+				int temp2 = cur->val;
+				cur->val = temp->val;
+				temp->val = temp2;
             }
         }
 
-        cur->prev->next = cur->next;
-        cur->next->prev = cur->prev;
-        cur->next = this->first;
-        this->first->prev = cur;
-        cur->prev = nullptr;
     }
 }
