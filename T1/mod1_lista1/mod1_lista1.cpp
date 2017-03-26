@@ -1,3 +1,9 @@
+/*
+Nome: Fernando Homem da Costa
+Matrícula: 1211971
+*/
+
+
 #include "mod1_lista1.h"
 #include <iostream>
 
@@ -18,7 +24,7 @@ List::List(const List& list)
 
     Node* cur = list.first;
 
-    while(cur->next != nullptr){
+    while(cur != nullptr){
         Node* node = new Node();
         node->val = cur->val;
         node->next = nullptr;
@@ -84,7 +90,7 @@ void List::push_front(const int& element)
 
 void List::pop_back()
 {
-   struct Node* temp = this->last;
+   Node* temp = this->last;
     
     this->last = temp->prev;
     this->last->next = nullptr;
@@ -92,20 +98,20 @@ void List::pop_back()
     std::cout<<"Element Deleted.\n"<<std::endl;
     
     temp->prev = nullptr;
-    delete(temp);//Liberando o pointer
+   delete(temp);//Liberando o pointer
 }
 
 
 void List::pop_front()
 {
-    struct Node* temp = this->first;
+    Node* temp = this->first;
     
     this->first = temp->next;
     this->first->prev = nullptr;
     
     std::cout<<"Element Deleted.\n"<<std::endl;
-    
-    temp->next = nullptr;
+
+	temp->next = nullptr;
     delete(temp);//Liberando o pointer
 }
 
@@ -135,6 +141,20 @@ void List::remove(const int& element)
     if(this->first == nullptr)
         return;
 
+	if (this->first->val == element) {
+		Node* temp = this->first;
+		this->first = temp->next;
+		this->first->prev = nullptr;
+		temp->next = nullptr;
+	}
+
+	if (this->last->val == element) {
+		Node* temp = this->last;
+		this->last = temp->prev;
+		this->last->next = nullptr;
+		temp->prev = nullptr;
+	}
+
     Node* temp = this->first;
     while(temp->next != nullptr){
         if(temp->val == element){
@@ -145,7 +165,6 @@ void List::remove(const int& element)
             temp = temp->next;
         }
     }
-
      return;
 }
 
@@ -155,11 +174,12 @@ void List::print()
     if(this->first == nullptr){
         std::cout<< "The list is empty.\n"<<std::endl;
     } else {
-        struct Node* temp = this->first;
+        Node* temp = this->first;
         while(temp != nullptr){
-            std::cout<< temp->val << "," <<std::endl;
+            std::cout<< temp->val << ",";
             temp = temp->next;
         }
+		std::cout << std::endl;
     }
 }
 

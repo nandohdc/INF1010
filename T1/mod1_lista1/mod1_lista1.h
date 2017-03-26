@@ -1,3 +1,8 @@
+/*
+Nome: Fernando Homem da Costa
+Matrícula: 1211971
+*/
+
 #pragma once
 
 struct Node
