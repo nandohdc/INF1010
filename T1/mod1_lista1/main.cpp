@@ -20,21 +20,14 @@ int main (void){
 	
 	
 	List* L3 = new List(l2);
-
 	L3->print();
-
 	L3->push_front(105);
 	L3->pop_back();
 	L3->push_back(101);
-
-	
-
 	L3->print();
-
 	L3->sort();
-
 	L3->print();
-
 	L3->~List();
+
 	return 0;
 }
