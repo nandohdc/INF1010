@@ -89,6 +89,8 @@ private:
 	//maximo uma subarvore)
 	void removesimplenode(Node* node);
 
+	Node* Abb::CopiaArvore(Node* oldRoot);
+
 private:
 	Node* _root;
 	Node* _cursor;
