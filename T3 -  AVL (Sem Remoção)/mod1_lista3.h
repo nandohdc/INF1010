@@ -66,6 +66,30 @@ private:
 
 	//Funcao recursiva para exibir a arvore
 	void show_rec(AvlNode* node);
+
+	//Copia uma arvore recursivamente
+	AvlNode* Avl::CopiaArvore(AvlNode* oldRoot);
+
+	//Deleta uma arvore recursivamente
+	void Avl::deleterec(AvlNode* root);
+
+	//Devolve qual o inteiro eh maior
+	int Avl::Max(int a, int b);
+
+	//Calcula a altura da arvore recursivamente
+	int Avl::heightrec(AvlNode* root);
+
+	//Calcula o fator de balanceamento de acordo com as alturas
+	int Avl::getBalance(AvlNode* Node);
+
+	//Faz uma rotacao do no para direita
+	AvlNode* rightRotate(AvlNode* Node);
+
+	//Faz uma rotacao do no para esquerda
+	AvlNode* leftRotate(AvlNode* Node);
+
+	//insere um no recursivamente
+	AvlNode* insertrec(AvlNode* node, int key, int& delta_h);
    
 private:
 	AvlNode* _root;
