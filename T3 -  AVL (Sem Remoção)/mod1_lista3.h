@@ -89,7 +89,7 @@ private:
 	AvlNode* leftRotate(AvlNode* Node);
 
 	//insere um no recursivamente
-	AvlNode* insertrec(AvlNode* node, int key, int& delta_h);
+	AvlNode* insertrec(AvlNode* node, int key);
    
 private:
 	AvlNode* _root;

@@ -36,14 +36,13 @@ Avl::~Avl()
 
 int Avl::height()
 {
-	return heightrec(this->_root);
+	return heightrec(this->_root) - 1;
 }
 
 
 void Avl::insert(int key)
 {
-	int delta_h = 0;
-	this->_root = this->insertrec(this->_root, key, delta_h);
+	this->_root = this->insertrec(this->_root, key);
 	this->_root->_up = nullptr;
 	this->_cursor = this->_root;
 }
@@ -162,11 +161,10 @@ void Avl::show_rec(AvlNode* node)
 }
 
 AvlNode* Avl::CopiaArvore(AvlNode* oldRoot) {
-	int delta_h = 0;
 	if (oldRoot == nullptr) {
 		return nullptr;
 	}
-	AvlNode* temp = insertrec(this->_root, oldRoot->_key, delta_h);
+	AvlNode* temp = insertrec(this->_root, oldRoot->_key);
 	temp->_left = CopiaArvore(oldRoot->_left);
 	temp->_right = CopiaArvore(oldRoot->_right);
 	return temp;
@@ -195,7 +193,7 @@ int Avl::heightrec(AvlNode* node) {
 	int leftHeight = heightrec(node->_left);
 	int rightHeight = heightrec(node->_right);
 
-	return (Max(leftHeight, rightHeight)) +1;
+	return (Max(leftHeight, rightHeight)) + 1;
 
 }
 
@@ -260,23 +258,22 @@ AvlNode* Avl::leftRotate(AvlNode* Node) {
 	return t;
 }
 
-AvlNode* Avl::insertrec(AvlNode* a, int key, int& delta_h) {
+AvlNode* Avl::insertrec(AvlNode* a, int key) {
 	if (a == nullptr) {
 		AvlNode* p = new AvlNode();
 		p->_key = key;
 		p->_left = p->_right = p->_up = nullptr;
 		p->_balance_factor = 0;
-		delta_h = 1;
 		return p;
 	}
 	else if (key > a->_key) {
-		a->_right = insertrec(a->_right, key, delta_h);
+		a->_right = insertrec(a->_right, key);
 		if (a->_right != nullptr) {
 			a->_right->_up = a;
 		}
 	}
 	else if (key < a->_key) {
-		a->_left = insertrec(a->_left, key, delta_h);
+		a->_left = insertrec(a->_left, key);
 		if (a->_left != nullptr) {
 			a->_left->_up = a;
 		}	
@@ -284,8 +281,6 @@ AvlNode* Avl::insertrec(AvlNode* a, int key, int& delta_h) {
 	else { //Chaves iguais nada a fazer
 		return a;
 	}
-
-	delta_h = 1 + Max(heightrec(a->_left), heightrec(a->_right));
 
 	a->_balance_factor = getBalance(a);
 
