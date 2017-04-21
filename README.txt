@@ -2,5 +2,6 @@
 🎓 Data Structures Course / Estrutura de Dados Avançada Curso
 
 T1 - Double Linked List / Lista Duplamente Encadeada - 8,5/10
-T2 - Binary Search Tree / Árvore Binária de Busca
-T3 - AVL Tree / Árvore AVL
+T2 - Binary Search Tree / Árvore Binária de Busca - 6,5/10
+T3 - AVL Tree / Árvore AVL - 8,0/10
+T4 - AVL Tree 2 / Árvore AVL com Remoção - xx/10
