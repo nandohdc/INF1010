@@ -5,6 +5,7 @@
 #include <iostream>
 
 #include "unionfind.h"
+#include "graph.h"
 
 
 int randomInt( int from, int to )
@@ -18,30 +19,37 @@ int randomInt( int from, int to )
 
 void createMaze( int m, int n, std::vector< bool >& maze )
 {
-    //Calculo do numero de paredes uteis.
-    nElementsWall = (2*(m*n)) -1;
+	int nElementsWall = 0;
 
-    //Criando o vetor de paredes uteis
-    std::vector<int> walls = std::vector<int>(nElementsWall, 1);
+	//Calculo do numero de paredes uteis.
+	nElementsWall = (2 * (m*n)) - 1;
 
-    //Criando union que representas as celulas, com tamanho MxN
-    _union = new UnionFind(m*n);
+	//Criando o vetor de paredes uteis
+	std::vector<int> walls = std::vector<int>(nElementsWall, 1);
 
-    int selectedWall = randomInt(0 , nElementsWall);
+	//Criando union que representas as celulas, com tamanho MxN
+	UnionFind *_union = new UnionFind(m*n);
 
-    if(selectedWall % 2 == 0){ // eh par
-        if((selectedWall + 2) % m != 0){// nao eh borda
-            if(_union->find((selectedWall/2)-1) != _union->find(selectedWall/2)+1) && maze[selectedWall] != true){
-                maze[selectedWall] = !maze[selectedWall];
-            }
-        }
-    } else{
-        if (selectedWall <= ((m*n*2)-(m*2))){// nao eh borda
-            if(_union->find((selectedWall/2)-1) != _union->find((selectedWall/2)+1) && maze[selectedWall] != true){
-                maze[selectedWall] = !maze[selectedWall];
-            }
-        }
-    }
+	while (_union->getNumSets() != 1) {
+		int selectedWall = randomInt(0, nElementsWall);
+
+		if (selectedWall % 2 == 0) { // eh par
+			if ((selectedWall + 2) % m != 0) {// nao eh borda
+				if (_union->find((selectedWall / 2) - 1) != _union->find(selectedWall / 2) + 1 && (maze[selectedWall] != true)) {
+					maze[selectedWall] = !maze[selectedWall];
+					_union->makeUnion(((selectedWall / 2) - 1), ((selectedWall / 2) + 1));
+				}
+			}
+		}
+		else {
+			if (selectedWall <= ((m*n * 2) - (m * 2))) {// nao eh borda
+				if (_union->find((selectedWall / 2) - 1) != _union->find((selectedWall / 2) + 1) && maze[selectedWall] != true) {
+					maze[selectedWall] = !maze[selectedWall];
+					_union->makeUnion(((selectedWall / 2) - 1), ((selectedWall / 2) + 1));
+				}
+			}
+		}
+	}
 }
 
 
@@ -88,3 +96,39 @@ void printMaze( const std::vector< bool >& maze )
         }
     }
 }
+
+
+Graph createGraph( const std::vector<bool>& maze, int m, int n )
+{
+    int size = m*n;
+    Graph mazeGraph(size);
+
+    for( int i = 0; i < n; i++ )
+    {
+        for( int j = 0; j < m; j++ )
+        {
+            int cell1 = i*m+j;
+            if( !maze[cell1*2] && (cell1+1)%m!=0 )
+                mazeGraph.insertEdge(cell1,cell1+1);
+            if( !maze[cell1*2+1] && cell1<(size-m) )
+                mazeGraph.insertEdge(cell1,cell1+m);
+        }
+    }
+
+	return mazeGraph;
+}
+
+
+void findStartEnd(const std::vector<bool>& maze, int m, int n, int& start, int& end)
+{
+    //Cria o grafo que representa o labirinto
+    Graph mazeGraph = createGraph(maze, m, n);
+
+    //TODO: Encontrar entrada e saida
+	mazeGraph.bfs(0);
+
+	start = 0;
+	end = 0;
+
+}
+

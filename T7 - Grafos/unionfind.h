@@ -22,11 +22,11 @@ public:
     int getNumSets();
 
 private:
-    //Procura o elemento pai atraves de um loop
-    int UnionFind::findLoop(int u);
+	//Procura o elemento pai atraves de um loop
+	int UnionFind::findLoop(int u);
 
-    //Procura o elemento pai atraves de uma recursao
-    int UnionFind::findRec(int u);
+	//Procura o elemento pai atraves de uma recursao
+	int UnionFind::findRec(int u);
 
 private:
     //Armazena o pai de cada elemento
