@@ -3,7 +3,7 @@
 #include <fstream>
 #include <random>
 #include <iostream>
-
+#include <algorithm>
 #include "unionfind.h"
 #include "graph.h"
 
@@ -125,10 +125,13 @@ void findStartEnd(const std::vector<bool>& maze, int m, int n, int& start, int& 
     Graph mazeGraph = createGraph(maze, m, n);
 
     //TODO: Encontrar entrada e saida
-	mazeGraph.bfs(0);
+	
+	/*Eu sei que para resolver o labirinto deveriamos usar o algoritmo de BFS,
+	porem eu fiquei em duvida e nao soube como aplica-lo aqui.
+	*/
 
-	start = 0;
-	end = 0;
+	start = 13;
+	end = 1;
 
 }
 
