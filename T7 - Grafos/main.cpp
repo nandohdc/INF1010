@@ -253,12 +253,12 @@ int main()
 {
 	// Descomente o teste desejado:
 
-	bfsTest();
+	//bfsTest();
 	//dfsTest();
 	//bicoloredTest();
 	//djikstraTest();
 	//kruskalTest();
-	//mazeTest();
+	mazeTest();
 
 	return 0;
 }

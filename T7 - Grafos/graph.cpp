@@ -124,7 +124,7 @@ void Graph::djikstra( int s )
 	std::vector<int> _distance;
 	std::vector<int> _previous;
 	std::priority_queue < std::pair<int, int>, std::vector<std::pair<int, int>>, std::greater<std::pair<int, int>> > minheap;
-	std::vector<Color> _colors = std::vector<Color>(this->G.size());
+	std::vector<Color> _colors;
 	
 	for (int index = 0; index < this->sizeG; index++) {
 		_colors.push_back(this->WHITE);
@@ -182,6 +182,30 @@ Graph Graph::kruskal()
 
 bool Graph::isBicolored()
 {
-    return false;
+	std::vector<int> _colors;
+	std::deque<int> _queue;
+	int src = 0;
+	for (int index = 0; index < this->sizeG; index++) {
+		_colors.push_back(-1);
+	}
+
+	_colors[src] = 1;
+	_queue.push_back(src);
+
+	while (!_queue.empty()) {
+		int popped = _queue.front();
+		_queue.pop_front();
+
+		for (int index = 0; index < this->G[popped].size(); index++) {
+			if (_colors[index] == -1) {
+				_colors[index] = 1 - _colors[popped];
+				_queue.push_back(this->G[popped][index].v);
+			}
+			else if (_colors[index] == _colors[popped]) {
+				return false;
+			}
+		}
+	}
+    return true;
 }
 
