@@ -55,26 +55,25 @@ void Graph::print()
 void Graph::bfs( int s )
 {
 	std::vector<int> _distance;
-	std::deque<int> _queue;
+	std::queue<int> _queue;
 	std::vector<Color> _colors;
 
 	for (int index = 0; index < this->sizeG; index++) {
 		_colors.push_back(this->WHITE);
 		_distance.push_back(INT_MAX);
 	}
-	_queue.push_front(s);
+	_queue.push(s);
 	_distance[s] = 0;
+	_colors[s] = this->GRAY;
 
 	while (!_queue.empty()) {
 		int popped = _queue.front();
-		_queue.pop_front();
+		_queue.pop();
 		for (int index = 0; index < this->G[popped].size(); index++) {
-			if (_colors[index] == this->WHITE) {
-				if (_distance[index] > _distance[popped]) {
-					_distance[index] = _distance[popped] + 1;
-				}
-				_colors[index] = this->GRAY;
-				_queue.push_front(this->G[popped][index].v);
+			if (_colors[this->G[popped][index].v] == this->WHITE) {
+				_distance[this->G[popped][index].v] = _distance[popped] + 1;
+				_colors[this->G[popped][index].v] = this->GRAY;
+				_queue.push(this->G[popped][index].v);
 			}
 		}
 		_colors[popped] = this->BLACK;
@@ -104,9 +103,7 @@ void Graph::dfs(int s)
 			if (_colors[popped] == this->WHITE) {
 				_colors[popped] = this->GRAY;
 				for (int index = 0; index < this->G[popped].size(); index++) {
-					if (_distance[index] > _distance[popped]) {
-						_distance[index] = _distance[popped] + 1;
-					}
+					_distance[this->G[popped][index].v] = _distance[popped] + 1;
 					_stack.push(this->G[popped][index].v);
 				}
 			}
@@ -197,8 +194,8 @@ bool Graph::isBicolored()
 		_queue.pop_front();
 
 		for (int index = 0; index < this->G[popped].size(); index++) {
-			if (_colors[index] == -1) {
-				_colors[index] = 1 - _colors[popped];
+			if (_colors[this->G[popped][index].v] == -1) {
+				_colors[this->G[popped][index].v] = 1 - _colors[popped];
 				_queue.push_back(this->G[popped][index].v);
 			}
 			else if (_colors[index] == _colors[popped]) {

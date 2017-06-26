@@ -84,15 +84,42 @@ void dfsTest()
 
 	std::cout << "s = 3" << std::endl;
 	graph1.dfs(3);
+	std::cout << "distances: ";
+	for (int d : graph1.distances)
+	{
+		std::cout << d << " ";
+	}
+	std::cout << std::endl;
 
 	std::cout << "s = 8" << std::endl;
+
 	graph1.dfs(8);
+	std::cout << "distances: ";
+	for (int d : graph1.distances)
+	{
+		std::cout << d << " ";
+	}
+	std::cout << std::endl;
 
 	std::cout << "Conecta as duas componentes do grafo..." << std::endl;
+
 	graph1.insertEdge(1, 5);
+	std::cout << "distances: ";
+	for (int d : graph1.distances)
+	{
+		std::cout << d << " ";
+	}
+	std::cout << std::endl;
 
 	std::cout << "s = 8" << std::endl;
+
 	graph1.dfs(8);
+	std::cout << "distances: ";
+	for (int d : graph1.distances)
+	{
+		std::cout << d << " ";
+	}
+	std::cout << std::endl;
 }
 
 /* Bicolored. Saida esperada:
@@ -254,11 +281,11 @@ int main()
 	// Descomente o teste desejado:
 
 	//bfsTest();
-	//dfsTest();
+	dfsTest();
 	//bicoloredTest();
 	//djikstraTest();
 	//kruskalTest();
-	mazeTest();
+	//mazeTest();
 
 	return 0;
 }
